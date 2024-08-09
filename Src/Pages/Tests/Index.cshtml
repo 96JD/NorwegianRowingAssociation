@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Test List";
+    User loggedInUser = SessionUtils.GetLoggedInUser(HttpContext.Session)!;
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Tests (@Model.AllTests!.Count())" />
+                @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                {
+                    <vc:add-button title="Add New Test" route="/Tests/Create" />
+                }
+			</div>
+            <div class="table-responsive small">
+                <table class="table">
+                    <caption class="visually-hidden">Table</caption>
+                    <thead>
+                        <th scope="col">Name</th>
+                        @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                        {
+                            <th colspan="2"></th>
+                        }
+                    </thead>
+                    <tbody>
+                    @foreach (Test test in Model.AllTests!)
+                    {
+                        <tr>
+                            <td>@test.Name</td>
+                            @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                            {
+                            <td class="col-md-1">
+                                <vc:edit-button title="Edit Test" route="/Tests/Update" id="@test.Id"/>
+                            </td>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

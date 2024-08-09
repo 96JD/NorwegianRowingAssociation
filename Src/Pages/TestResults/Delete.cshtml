@@ -1,0 +1,48 @@
+﻿@page "/TestResults/Delete/{id:int}"
+@model DeleteModel
+
+@{
+    ViewData["Title"] = "Test Result Delete";
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Test Result Delete" />
+            </div>
+            <form method="POST">
+                <div class="table-responsive small">
+                    <table class="table">
+                        <caption class="visually-hidden">Table</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Test</th>
+                                <th scope="col">Week</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.TestResult!.User!.FirstName @Model.TestResult!.User.LastName</td>
+                                <td>@Model.TestResult!.Test!.Name</td>
+                                <td>@Model.TestResult!.TestWeek!.Number</td>
+                                <td>@Model.TestResult!.Score</td>
+                                <td>@Model.TestResult!.Time</td>
+                                <td>@Model.TestResult!.CreatedDate.Year</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Are you sure you want to delete this test result?</p>
+                <div>
+                    <a class="btn btn-secondary" asp-page="/TestResults/Index">No</a>
+                    <vc:submit-button label="Yes" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

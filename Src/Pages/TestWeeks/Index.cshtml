@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Week List";
+    User loggedInUser = SessionUtils.GetLoggedInUser(HttpContext.Session)!;
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Weeks (@Model.AllTestWeeks!.Count())" />
+                @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                {
+                    <vc:add-button title="Add New Week" route="/TestWeeks/Create" />
+                }
+			</div>
+            <div class="table-responsive small">
+                <table class="table">
+                    <caption class="visually-hidden">Table</caption>
+                    <thead>
+                        <th scope="col">Number</th>
+                        @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                        {
+                            <th colspan="2"></th>
+                        }
+                    </thead>
+                    <tbody>
+                    @foreach (TestWeek week in Model.AllTestWeeks!)
+                    {
+                        <tr>
+                            <td>@week.Number</td>
+                            @if (loggedInUser.UserRoleId == UserRoleConstants.Admin)
+                            {
+                            <td class="col-md-1">
+                                <vc:edit-button title="Edit Test Week" route="/TestWeeks/Update" id="@week.Id"/>
+                            </td>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

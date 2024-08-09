@@ -1,0 +1,28 @@
+﻿@model TestWeekFormModel
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Week Form" />
+            </div>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="test-week-number" class="mb-1">Number</label>
+                    <input id="test-week-number" type="number" class="form-control" asp-for="@Model.TestWeek!.Number"/>
+                    <span class="text-danger" asp-validation-for="@Model.TestWeek!.Number"></span>
+                </div>
+                <div class="text-center">
+                @if (ViewContext.RouteData.Values["id"] is null)
+                {
+                    <vc:submit-button label="Create" />
+                } else
+                {
+                    <input hidden asp-for="@Model.TestWeek!.Id" />
+                    <vc:submit-button label="Update" />
+                }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

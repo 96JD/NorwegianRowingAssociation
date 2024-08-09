@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Class List";
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Classes (@Model.AllUserClasses!.Count())" />
+			</div>
+            <div class="table-responsive small">
+                <table class="table">
+                    <caption class="visually-hidden">Table</caption>
+                    <thead>
+                        <th scope="col">Name</th>
+                    </thead>
+                    <tbody>
+                    @foreach (UserClass userClass in Model.AllUserClasses!)
+                    {
+                        <tr>
+                            <td>@userClass.Name</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

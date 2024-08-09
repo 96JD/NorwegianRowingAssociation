@@ -1,0 +1,20 @@
+html,
+body {
+	height: 100%;
+}
+
+.active {
+	color: #144ca0;
+}
+
+.toast-position {
+	z-index: 1021;
+	top: 15px;
+	right: 15px;
+}
+
+.bi {
+	width: 1.1rem;
+	height: 1.1rem;
+	fill: currentColor;
+}

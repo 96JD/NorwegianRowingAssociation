@@ -1,0 +1,64 @@
+﻿@model TestResultFormModel
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Test Result Form" />
+            </div>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="user-id" class="mb-1">Users<span class="text-danger">*</span></label>
+                    <select id="user-id" class="form-select" asp-for="@Model.TestResult!.UserId">
+                        <option />
+                        @foreach (User user in Model.AllUsers!)
+                        {
+                        <option value="@user.Id">@user.FirstName @user.LastName</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="test-id" class="mb-1">Tests<span class="text-danger">*</span></label>
+                    <select id="test-id" class="form-select" asp-for="@Model.TestResult!.TestId">
+                        <option />
+                        @foreach (Test test in Model.AllTests!)
+                        {
+                        <option value="@test.Id">@test.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="test-week-id" class="mb-1">Weeks<span class="text-danger">*</span></label>
+                    <select id="test-week-id" class="form-select" asp-for="@Model.TestResult!.TestWeekId">
+                        <option />
+                        @foreach (TestWeek week in Model.AllTestWeeks!)
+                        {
+                        <option value="@week.Id">@week.Number</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="score" class="mb-1">Score</label>
+                    <input id="score" type="number" class="form-control" asp-for="@Model.TestResult!.Score" />
+                    <span class="text-danger" asp-validation-for="@Model.TestResult!.Score"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="time" class="mb-1">Time</label>
+                    <input id="time" class="form-control" asp-for="@Model.TestResult!.Time"/>
+                    <span class="text-danger" asp-validation-for="@Model.TestResult!.Time"></span>
+                </div>
+                <div class="text-center">
+                @if (ViewContext.RouteData.Values["id"] is null)
+                {
+                    <vc:submit-button label="Create" />
+                } else
+                {
+                    <input hidden asp-for="@Model.TestResult!.Id" />
+                    <input hidden asp-for="@Model.TestResult!.CreatedDate" />
+                    <vc:submit-button label="Update" />
+                }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

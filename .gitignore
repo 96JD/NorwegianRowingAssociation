@@ -1,0 +1,6 @@
+.github
+.history
+.vs
+Src/bin
+Src/obj
+Src/appsettings.Production.json

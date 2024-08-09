@@ -1,0 +1,81 @@
+﻿@model UserFormModel
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="User Form" />
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="image">Image<span class="text-danger">*</span></label>
+                    <input id="image" class="form-control" asp-for="@Model.User!.Image"/>
+                </div>
+                <div class="mb-3">
+                    <label for="first-name" class="mb-1" >First Name<span class="text-danger">*</span></label>
+                    <input id="first-name" class="form-control" asp-for="@Model.User!.FirstName"/>
+                    <span class="text-danger" asp-validation-for="@Model.User!.FirstName"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="last-name" class="mb-1">Last Name<span class="text-danger">*</span></label>
+                    <input id="last-name" class="form-control" asp-for="@Model.User!.LastName"/>
+                    <span class="text-danger" asp-validation-for="@Model.User!.LastName"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="mb-1">Email<span class="text-danger">*</span></label>
+                    <input type="email" id="email" class="form-control" autocomplete="username" asp-for="@Model.User!.Email"/>
+                    <span class="text-danger" asp-validation-for="@Model.User!.Email"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="year-of-birth" class="mb-1">Birth<span class="text-danger">*</span></label>
+                    <select id="year-of-birth" class="form-select" asp-for="@Model.User!.YearOfBirth">
+                        <option />
+                        @for (int year = DateTime.Now.Year - 12; year >= DateTime.Now.Year - 60; year--)
+                        {
+                        <option value="@year">@year</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="user-class-id" class="mb-1">Classes<span class="text-danger">*</span></label>
+                    <select id="user-class-id"  class="form-select" asp-for="@Model.User!.UserClassId">
+                        <option />
+                        @foreach (UserClass userClass in Model.AllUserClasses!)
+                        {
+                        <option value="@userClass.Id">@userClass.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="user-role-id" class="mb-1">Roles<span class="text-danger">*</span></label>
+                    <select id="user-role-id" class="form-select" asp-for="@Model.User!.UserRoleId">
+                        <option />
+                        @foreach (UserRole userRole in Model.AllUserRoles!)
+                        {
+                        <option value="@userRole.Id">@userRole.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="mb-1">Password<span class="text-danger">*</span></label>
+                    <input type="password" id="password" class="form-control" autocomplete="on" asp-for="@Model.User!.Password"/>
+                    <span class="text-danger" asp-validation-for="@Model.User!.Password"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="password-confirm" class="mb-1">Password confirmation<span class="text-danger">*</span></label>
+                    <input
+                        type="password"
+                        id="password-confirm"
+                        class="form-control"
+                        name="password-confirm"
+                        autocomplete="new-password"
+                        required
+                    />
+                </div>
+                <div class="text-center">
+                    <vc:submit-button label="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Test Result List";
+    User loggedInUser = SessionUtils.GetLoggedInUser(HttpContext.Session)!;
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Test Results (@Model.AllTestResults!.Count())" />
+                @if (loggedInUser.UserRoleId == UserRoleConstants.Trainer)
+                {
+                    <vc:add-button title="Add New Test Result" route="/TestResults/Create" />
+                }
+			</div>
+            <div class="table-responsive small">
+                <table class="table">
+                    <caption class="visually-hidden">Table</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Club</th>
+                            <th scope="col">Test</th>
+                            <th scope="col">Week</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Date</th>
+                            @if (loggedInUser.UserRoleId == UserRoleConstants.Trainer)
+                            {
+                                <th colspan="2"></th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (TestResult testResult in Model.AllTestResults!)
+                        {
+                        <tr>
+                            <td>@testResult.User!.FirstName @testResult.User.LastName</td>
+                            <td>@testResult.User!.UserClass!.Name</td>
+                            <td>@testResult.User!.UserClub!.Name</td>
+                            <td>@testResult.Test!.Name</td>
+                            <td>@testResult.TestWeek!.Number</td>
+                            <td>@testResult.Score</td>
+                            <td>@testResult.Time</td>
+                            <td>@testResult.CreatedDate.Year</td>
+                            @if (loggedInUser.UserRoleId == UserRoleConstants.Trainer)
+                            {
+                            <td class="col-md-1">
+                                <vc:edit-button title="Edit Test Result" route="/TestResults/Update" id="@testResult.Id"/>
+                            </td>
+                            <td class="col-md-1">
+                                <vc:delete-button title="Delete Test Result" route="/TestResults/Delete" id="@testResult.Id"/>
+                            </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

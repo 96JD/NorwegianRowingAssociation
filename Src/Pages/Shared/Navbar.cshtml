@@ -1,0 +1,19 @@
+﻿@{ User loggedInUser = SessionUtils.GetLoggedInUser(Context.Session)!; }
+
+<header class="navbar sticky-top bg-body-tertiary p-2 shadow">
+    <partial name="Logo" />
+	@if (loggedInUser is not null)
+	{
+	<button
+		class="nav-link p-2 text-dark d-md-none"
+		type="button"
+		data-bs-toggle="offcanvas"
+		data-bs-target="#sidebarMenu"
+		aria-controls="sidebarMenu"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<svg class="bi"><use xlink:href="#list" /></svg>
+	</button>
+	}
+</header>

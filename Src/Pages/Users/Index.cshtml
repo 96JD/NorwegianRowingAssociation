@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "User List";
+    User loggedInUser = SessionUtils.GetLoggedInUser(HttpContext.Session)!;
+}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-2 mb-4 border-bottom">
+                <vc:legend title="Users (@Model.AllUsers!.Count())" />
+                @if (loggedInUser.UserRoleId == UserRoleConstants.Trainer)
+                {
+                    <vc:add-button title="Add New User" route="/Users/Create" />
+                }
+			</div>
+            <div class="table-responsive small">
+                <table class="table">
+                    <caption class="visually-hidden">Table</caption>
+                    <thead>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Birth</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Club</th>
+                        <th scope="col">Role</th>
+                    </thead>
+                    <tbody>
+                    @foreach (User user in Model.AllUsers!)
+                    {
+                        <tr>
+                            <td class="align-middle">
+                                <img
+                                	class="rounded-circle"
+									src="~/@user.ImageUrl"
+									alt="User"
+									width="50"
+									height="50"
+                                />
+                            </td>
+                            <td class="align-middle">@user.FirstName @user.LastName</td>
+                            <td class="align-middle">@user.Email</td>
+                            <td class="align-middle">@user.YearOfBirth</td>
+                            <td class="align-middle">@user?.UserClass?.Name</td>
+                            <td class="align-middle">@user?.UserClub?.Name</td>
+                            <td class="align-middle">@user?.UserRole?.Name</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

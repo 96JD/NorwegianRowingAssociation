@@ -1,0 +1,31 @@
+﻿@{ User loggedInUser = SessionUtils.GetLoggedInUser(Context.Session)!; }
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <partial name="Metas" />
+		<title>@ViewData["Title"]</title>
+	    <partial name="Links" />
+	</head>
+    <body>
+		<partial name="Svgs" />
+		<partial name="Navbar" />
+		<partial name="Toasts" />
+		<div class="container-fluid h-100">
+			<div class="row h-100">
+			@if (loggedInUser is null)
+				{
+				<main class="col-md-6 mx-auto p-4">
+					@RenderBody()
+				</main>
+				} else {
+				<partial name="Sidebar" />
+				<main class="col-md-9 col-lg-10 p-4">
+					@RenderBody()
+				</main>
+				}
+			</div>
+		</div>
+		<partial name="Scripts" />
+    </body>
+</html>
